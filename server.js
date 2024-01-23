@@ -1,6 +1,7 @@
 import WebSocket, { WebSocketServer } from 'ws';
 
-const wss = new WebSocketServer({ port: 8080 });
+console.log("THis is the port: ", process.env.PORT)
+const wss = new WebSocketServer({port: Number(process.env.PORT)});
 
 let pastorData = { type: "NONE", date: new Date() };
 
