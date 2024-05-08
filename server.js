@@ -14,6 +14,8 @@ wss.on("connection", function connection(ws) {
   ws.isAlive = true;
   ws.on("error", console.error);
   ws.on("pong", heartbeat);
+  ws.on("close", () => console.log(`Connection Closed: ${new Date().toLocaleString()}`));
+
 
   ws.on("message", function message(data, isBinary) {
     const Jdata = JSON.parse(data);
@@ -29,7 +31,11 @@ wss.on("connection", function connection(ws) {
   ws.send(JSON.stringify(pastorData));
 });
 
+
+
+
 const interval = setInterval(function ping() {
+  console.log("Current number of connections:", wss.clients.size);
   wss.clients.forEach(function each(ws) {
     if (ws.isAlive === false) return ws.terminate();
 
